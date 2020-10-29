@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.example.debugpaging3.activityfeed.vm.FeedUIItem" />
+
+        <import type="com.example.debugpaging3.activityfeed.vm.FeedUIItem.FeedEventItem" />
+
+        <variable
+            name="obj"
+            type="FeedEventItem" />
+
+        <import type="com.example.debugpaging3.ui.adapters.BaseHandler" />
+
+        <variable
+            name="handler"
+            type="BaseHandler&lt;FeedUIItem&gt;"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            layout="@layout/component_feed_event"
+            app:obj="@{obj}"
+            app:handler="@{handler}"
+            android:id="@+id/feed_group_item_1_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_max="400dp"
+            />
+
+    </FrameLayout>
+</layout>

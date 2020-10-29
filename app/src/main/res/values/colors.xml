@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color scheme for the app; should always be replaced per project -->
+    <color name="primary_color">#f15f4a</color>
+    <color name="primary_color_selected">#f15f4a</color>
+    <color name="primary_color_dark">#f15f4a</color>
+    <color name="accent_color">#cccccc</color>
+    <color name="accent_color_selected">#f15f4a</color>
+
+    <!-- Colors -->
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="transparent">#0fff</color>
+
+    <!-- Theme colors -->
+    <color name="color_on_primary">@color/white</color>
+    <color name="color_on_surface">@color/black</color>
+
+    <!-- Tools colors -->
+    <color name="primary_color_tools">#f15f4a</color>
+</resources>

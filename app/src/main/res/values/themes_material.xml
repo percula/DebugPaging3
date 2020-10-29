@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Material.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_color_selected</item>
+        <item name="colorSecondary">@color/accent_color</item>
+        <item name="colorSecondaryVariant">@color/accent_color</item>
+        <item name="android:textColorTertiary">#C9C5C5</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Material.AppTheme" parent = "Theme.Material.Base"/>
+
+    <style name="Material.AppTheme.Tools">
+        <item name="colorPrimary">#f15f4a</item>
+    </style>
+
+    <style name="Material.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" >
+        <item name="colorPrimary">?attr/colorSurface</item>
+    </style>
+
+    <style name="Material.PopupOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
+
+</resources>
