@@ -5,19 +5,12 @@
 
     <data>
 
-        <import type="com.example.debugpaging3.activityfeed.vm.FeedUIItem" />
-
-        <import type="com.example.debugpaging3.activityfeed.vm.FeedUIItem.FeedEventItem" />
+        <import type="com.example.debugpaging3.activityfeed.models.FeedEvent" />
 
         <variable
             name="obj"
-            type="FeedEventItem" />
+            type="FeedEvent" />
 
-        <import type="com.example.debugpaging3.ui.adapters.BaseHandler" />
-
-        <variable
-            name="handler"
-            type="BaseHandler&lt;FeedUIItem&gt;"/>
     </data>
 
     <FrameLayout
@@ -34,9 +27,6 @@
         android:layout_marginEnd="@dimen/large_padding"
         android:layout_marginTop="@dimen/small_padding"
         android:layout_marginBottom="@dimen/small_padding"
-        android:clickable="@{handler.onClick != null}"
-        android:focusable="@{handler.onClick != null}"
-        android:onClick="@{(view) -> handler.onClick.invoke(view, obj)}"
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/small_padding"
                 android:paddingBottom="@dimen/small_padding"
-                android:text="@{obj.timestamp}"
+                android:text="@{obj.timestampText}"
                 android:textAppearance="@style/TextAppearance.Text.Secondary.Small"
                 app:layout_constraintTop_toBottomOf="@id/barrier_top"
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
@@ -108,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/TextAppearance.Text.Secondary"
-                android:text="@{obj.description}"
+                android:text="@{obj.caption}"
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
                 app:layout_constraintTop_toBottomOf="@id/title"
@@ -119,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_padding"
-                android:text="@{obj.source}"
+                android:text="@{obj.sourceText}"
                 android:textAppearance="@style/TextAppearance.Text.Tertiary.Small.Italicized"
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintHorizontal_bias="0"

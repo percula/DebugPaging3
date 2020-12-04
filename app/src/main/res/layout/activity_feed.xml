@@ -16,6 +16,7 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:navGraph="@navigation/activity_feed_nav_graph"
             app:defaultNavHost="true" />
 
     </FrameLayout>

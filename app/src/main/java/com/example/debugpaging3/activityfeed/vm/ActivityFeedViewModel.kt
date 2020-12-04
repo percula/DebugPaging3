@@ -1,17 +1,18 @@
 package com.example.debugpaging3.activityfeed.vm
 
 import android.app.Application
-import androidx.lifecycle.*
-import androidx.paging.*
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.debugpaging3.BaseApplication
+import com.example.debugpaging3.activityfeed.db.EventPagingSource
 import com.example.debugpaging3.activityfeed.db.EventsRemoteMediator
 import com.example.debugpaging3.activityfeed.models.FeedEvent
-import com.example.debugpaging3.util.createPastDateNoDayString
-import com.example.debugpaging3.util.createPastTimeString
-import dev.percula.ktx.mutableLiveDataOf
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import org.threeten.bp.ZoneId
 
 class ActivityFeedViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,26 +24,9 @@ class ActivityFeedViewModel(application: Application) : AndroidViewModel(applica
             ),
             remoteMediator = EventsRemoteMediator(BaseApplication.app.db)
     ) {
-        BaseApplication.app.db.eventDao().pagingSource()
+        EventPagingSource(BaseApplication.app.db, BaseApplication.app.db.eventDao())
     }
 
-    val pagingFlow: Flow<PagingData<FeedUIItem>> = pager.flow.map {
-        it.map { event -> createFeedEventItem(event) }
-    }.cachedIn(viewModelScope)
-
-    private fun createFeedEventItem(item: FeedEvent): FeedUIItem {
-        return FeedUIItem.FeedEventItem(
-            timestamp = mutableLiveDataOf(
-                item.time?.atZoneSameInstant(ZoneId.systemDefault())
-                    ?.createPastTimeString() + " " + item.time?.atZoneSameInstant(
-                    ZoneId.systemDefault()
-                )?.createPastDateNoDayString()
-            ),
-            title = mutableLiveDataOf(item.title),
-            description = mutableLiveDataOf(item.caption),
-            source = mutableLiveDataOf(item.sourceText),
-            event = item
-        )
-    }
+    val pagingFlow: Flow<PagingData<FeedEvent>> = pager.flow.cachedIn(viewModelScope)
 
 }

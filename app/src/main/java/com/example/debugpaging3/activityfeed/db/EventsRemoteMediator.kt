@@ -9,24 +9,16 @@ import java.lang.Exception
 @OptIn(ExperimentalPagingApi::class)
 class EventsRemoteMediator(
     private val database: AppDatabase,
-) : RemoteMediator<Int, FeedEvent>() {
+) : RemoteMediator<String, FeedEvent>() {
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, FeedEvent>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<String, FeedEvent>): MediatorResult {
         return try {
-            val eventIdCursor = when (loadType) {
-                LoadType.REFRESH -> null
-                LoadType.PREPEND -> state.firstItemOrNull()?.eventID ?: return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> state.lastItemOrNull()?.eventID ?: return MediatorResult.Success(endOfPaginationReached = true)
-            }
+            // Disable prepending items for this demo
+            if (loadType == LoadType.PREPEND) return MediatorResult.Success(endOfPaginationReached = true)
 
-            // This is where I usually load the events from the network using the eventIdCursor ^,
+            // This is where I usually load the events from the network using a key,
             // but for for this demo I'll generate local dummy events
-            val events = if (loadType == LoadType.PREPEND) {
-                // Disable prepending items for this demo
-                emptyList<FeedEvent>()
-            } else {
-                createDummyEvents(state.config.pageSize)
-            }
+            val events = createDummyEvents(state.config.pageSize)
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -39,7 +31,7 @@ class EventsRemoteMediator(
                 database.eventDao().insertAll(events)
             }
 
-            MediatorResult.Success(endOfPaginationReached = events.isEmpty())
+            MediatorResult.Success(endOfPaginationReached = false)
         } catch (e: Exception) {
             MediatorResult.Error(e)
         }

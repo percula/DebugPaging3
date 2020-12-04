@@ -19,7 +19,6 @@ open class BaseApplication : Application() {
         super.onCreate()
         app = this
         AndroidThreeTen.init(this)
-        db
     }
 
     companion object {
